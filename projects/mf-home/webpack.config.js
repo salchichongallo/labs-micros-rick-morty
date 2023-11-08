@@ -7,7 +7,7 @@ module.exports = withModuleFederationPlugin({
   name: "mf-home",
 
   exposes: {
-    "./Component": "./projects/mf-home/src/app/app.component.ts",
+    "./Module": "./projects/mf-home/src/app/app-routing.module",
   },
 
   shared: {
