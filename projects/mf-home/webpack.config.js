@@ -3,7 +3,10 @@ const {
   withModuleFederationPlugin,
 } = require("@angular-architects/module-federation/webpack");
 
-module.exports = withModuleFederationPlugin({
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
+const config = withModuleFederationPlugin({
   name: "mf-home",
 
   exposes: {
@@ -18,3 +21,14 @@ module.exports = withModuleFederationPlugin({
     }),
   },
 });
+
+config.plugins.push(
+  new BundleAnalyzerPlugin({
+    reportTitle: "mf-home",
+    analyzerPort: 8889,
+    analyzerMode: "static",
+    openAnalyzer: false,
+  })
+);
+
+module.exports = config;

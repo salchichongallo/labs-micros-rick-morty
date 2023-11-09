@@ -3,7 +3,10 @@ const {
   withModuleFederationPlugin,
 } = require("@angular-architects/module-federation/webpack");
 
-module.exports = withModuleFederationPlugin({
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
+const config = withModuleFederationPlugin({
   shared: {
     ...shareAll({
       singleton: true,
@@ -12,3 +15,14 @@ module.exports = withModuleFederationPlugin({
     }),
   },
 });
+
+config.plugins.push(
+  new BundleAnalyzerPlugin({
+    reportTitle: "shell",
+    analyzerPort: 8888,
+    analyzerMode: "static",
+    openAnalyzer: false,
+  })
+);
+
+module.exports = config;
